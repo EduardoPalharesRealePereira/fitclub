@@ -13,32 +13,16 @@ const painPoints = [
   },
   {
     icon: "📊",
-    title: "Zero visibilidade do progresso",
+    title: "Zero visibilidade",
     desc: "Você não sabe o que funciona. Sem dados claros, fica repetindo o mesmo erro semana após semana.",
   },
 ];
 
 const features = [
-  {
-    icon: "⚡",
-    title: "Treinos inteligentes",
-    desc: "IA que adapta sua rotina ao seu nível, objetivos e tempo disponível — direto no seu bolso.",
-  },
-  {
-    icon: "🏆",
-    title: "Desafios em comunidade",
-    desc: "Compete e colabora com pessoas reais. Streaks, rankings e conquistas que mantêm você no jogo.",
-  },
-  {
-    icon: "📈",
-    title: "Progresso que você vê",
-    desc: "Métricas visuais de evolução: força, resistência, composição corporal e bem-estar mental.",
-  },
-  {
-    icon: "🧠",
-    title: "Wellness 360°",
-    desc: "Além do físico: sono, nutrição, meditação e saúde mental integrados em um único app.",
-  },
+  { icon: "⚡", title: "Treinos inteligentes", desc: "IA que adapta sua rotina ao nível, objetivo e tempo disponível." },
+  { icon: "🏆", title: "Desafios em comunidade", desc: "Streaks, rankings e conquistas que mantêm você no jogo." },
+  { icon: "📈", title: "Progresso visível", desc: "Métricas de força, resistência, composição corporal e bem-estar." },
+  { icon: "🧠", title: "Wellness 360°", desc: "Sono, nutrição, meditação e saúde mental em um único app." },
 ];
 
 const stats = [
@@ -50,248 +34,229 @@ const stats = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen" style={{ background: "#080b10" }}>
-      {/* Nav */}
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4"
-        style={{
-          background: "rgba(8, 11, 16, 0.85)",
-          backdropFilter: "blur(20px)",
-          borderBottom: "1px solid rgba(0,229,160,0.08)",
-        }}
-      >
-        <div className="flex items-center gap-2">
-          <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-base font-black"
-            style={{ background: "linear-gradient(135deg, #00e5a0, #00b4d8)", color: "#080b10" }}
-          >
-            F
-          </div>
-          <span className="font-bold text-lg tracking-tight" style={{ color: "#f0f4f8" }}>
-            FitClub
-          </span>
+    <main style={{ background: "#080b10", minHeight: "100vh", color: "#f0f4f8" }}>
+
+      {/* ── NAVBAR ── */}
+      <header style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "1rem 1.5rem",
+        background: "rgba(8,11,16,0.88)",
+        backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(0,229,160,0.08)",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{
+            width: 34, height: 34, borderRadius: 8,
+            background: "linear-gradient(135deg,#00e5a0,#00b4d8)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            color: "#080b10", fontWeight: 900, fontSize: "1rem",
+          }}>F</div>
+          <span style={{ fontWeight: 800, fontSize: "1.125rem", letterSpacing: "-0.02em" }}>FitClub</span>
         </div>
-        <a href="#auth" className="btn-primary px-5 py-2 rounded-xl text-sm hidden sm:block">
+        <a href="#auth" className="btn-primary" style={{ padding: "0.5rem 1.25rem", fontSize: "0.875rem" }}>
           Começar grátis
         </a>
-      </nav>
+      </header>
 
-      {/* Hero */}
-      <section className="grid-bg relative pt-32 pb-24 px-6 overflow-hidden">
-        <div
-          className="absolute top-20 left-1/4 w-96 h-96 rounded-full pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(0,229,160,0.08) 0%, transparent 70%)",
-            filter: "blur(40px)",
-          }}
-        />
-        <div
-          className="absolute top-40 right-1/4 w-80 h-80 rounded-full pointer-events-none"
-          style={{
-            background: "radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%)",
-            filter: "blur(40px)",
-          }}
-        />
+      {/* ── HERO ── */}
+      <section
+        className="grid-dots"
+        style={{ paddingTop: "7rem", paddingBottom: "5rem", position: "relative", overflow: "hidden" }}
+      >
+        {/* Glow orbs */}
+        <div style={{
+          position: "absolute", top: "10%", left: "20%",
+          width: 400, height: 400, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%)",
+          filter: "blur(50px)", pointerEvents: "none",
+        }} />
+        <div style={{
+          position: "absolute", top: "30%", right: "15%",
+          width: 320, height: 320, borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(0,180,216,0.05) 0%, transparent 70%)",
+          filter: "blur(50px)", pointerEvents: "none",
+        }} />
 
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left */}
-          <div>
-            <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold mb-8"
-              style={{
-                background: "rgba(0,229,160,0.1)",
-                border: "1px solid rgba(0,229,160,0.25)",
-                color: "#00e5a0",
-              }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full inline-block" style={{ background: "#00e5a0" }} />
+        <div className="hero-inner" style={{
+          maxWidth: 1152, margin: "0 auto",
+          padding: "0 1.5rem",
+          display: "grid",
+          gridTemplateColumns: "1fr",
+          gap: "3rem",
+        }}>
+          {/* Text col */}
+          <div style={{ maxWidth: 580 }}>
+            {/* Badge */}
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              padding: "0.375rem 1rem", borderRadius: 999,
+              background: "rgba(0,229,160,0.1)",
+              border: "1px solid rgba(0,229,160,0.25)",
+              color: "#00e5a0", fontSize: "0.75rem", fontWeight: 700,
+              marginBottom: "1.5rem",
+            }}>
+              <span style={{
+                width: 7, height: 7, borderRadius: "50%",
+                background: "#00e5a0", display: "inline-block",
+                animation: "pulse-dot 1.8s ease-in-out infinite",
+              }} />
               App #1 de fitness com comunidade no Brasil
             </div>
 
-            <h1
-              className="text-5xl sm:text-6xl font-black leading-[1.05] tracking-tight mb-6"
-              style={{ color: "#f0f4f8" }}
-            >
+            <h1 style={{
+              fontSize: "clamp(2.4rem, 5vw, 3.75rem)",
+              fontWeight: 900, lineHeight: 1.08,
+              letterSpacing: "-0.03em", marginBottom: "1.25rem",
+            }}>
               Seu melhor eu{" "}
-              <span className="gradient-text block">começa aqui.</span>
+              <span className="gradient-text">começa aqui.</span>
             </h1>
 
-            <p className="text-lg leading-relaxed mb-10" style={{ color: "#8b9bb4" }}>
+            <p style={{ fontSize: "1.0625rem", lineHeight: 1.7, color: "#8b9bb4", marginBottom: "2rem", maxWidth: 480 }}>
               FitClub une tecnologia adaptativa, comunidade real e dados inteligentes para
               transformar sua jornada de fitness e wellness — sem achismos, sem abandono.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#auth" className="btn-primary px-8 py-4 rounded-xl text-base text-center">
-                Começar grátis →
-              </a>
-              <a href="#features" className="btn-ghost px-8 py-4 rounded-xl text-base text-center">
-                Como funciona
-              </a>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "2rem" }}>
+              <a href="#auth" className="btn-primary">Começar grátis →</a>
+              <a href="#features" className="btn-ghost">Como funciona</a>
             </div>
 
-            <div className="flex items-center gap-4 mt-10">
-              <div className="flex -space-x-2">
-                {["💪", "🔥", "⚡", "🏃"].map((emoji, i) => (
-                  <div
-                    key={i}
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-sm border-2"
-                    style={{ background: "#0d1520", borderColor: "#1a2332" }}
-                  >
-                    {emoji}
-                  </div>
+            {/* Social proof */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+              <div style={{ display: "flex" }}>
+                {["💪","🔥","⚡","🏃"].map((e, i) => (
+                  <div key={i} style={{
+                    width: 34, height: 34, borderRadius: "50%",
+                    background: "#0d1520", border: "2px solid #1a2332",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "0.875rem", marginLeft: i > 0 ? -10 : 0,
+                  }}>{e}</div>
                 ))}
               </div>
-              <p className="text-sm" style={{ color: "#8b9bb4" }}>
-                <span style={{ color: "#00e5a0", fontWeight: 700 }}>+50.000</span> atletas já
-                transformaram seus resultados
-              </p>
+              <span style={{ fontSize: "0.8125rem", color: "#8b9bb4" }}>
+                <strong style={{ color: "#00e5a0" }}>+50.000</strong> atletas transformados
+              </span>
             </div>
           </div>
 
-          {/* Auth panel */}
-          <div id="auth">
+          {/* Auth col */}
+          <div id="auth" style={{ width: "100%", maxWidth: 460 }}>
             <AuthPanel />
           </div>
         </div>
+
+        {/* responsive grid: side-by-side on large screens */}
+        <style>{`
+          @media (min-width: 960px) {
+            .hero-grid { grid-template-columns: 1fr 1fr !important; align-items: center; }
+          }
+        `}</style>
       </section>
 
-      {/* Stats */}
+      {/* ── STATS ── */}
       <section style={{ borderTop: "1px solid #1a2332", borderBottom: "1px solid #1a2332" }}>
-        <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-2 sm:grid-cols-4 gap-8">
+        <div className="stats-grid" style={{
+          maxWidth: 1152, margin: "0 auto", padding: "3.5rem 1.5rem",
+          display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "2rem",
+        }}>
           {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-4xl font-black gradient-text mb-1">{s.value}</p>
-              <p className="text-sm" style={{ color: "#8b9bb4" }}>{s.label}</p>
+            <div key={s.label} style={{ textAlign: "center" }}>
+              <p className="gradient-text" style={{ fontSize: "2.25rem", fontWeight: 900, lineHeight: 1.1 }}>{s.value}</p>
+              <p style={{ fontSize: "0.8125rem", color: "#8b9bb4", marginTop: "0.25rem" }}>{s.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Pain Points */}
-      <section className="py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "#00e5a0" }}>
-              O problema que todo mundo conhece
-            </p>
-            <h2
-              className="text-4xl sm:text-5xl font-black leading-tight mb-5"
-              style={{ color: "#f0f4f8" }}
-            >
+      {/* ── PAIN POINTS ── */}
+      <section style={{ padding: "5rem 1.5rem" }}>
+        <div style={{ maxWidth: 1152, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p className="section-label" style={{ marginBottom: "0.75rem" }}>O problema que todo mundo conhece</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "1rem" }}>
               Por que 80% das pessoas{" "}
               <span className="gradient-text">desistem do fitness?</span>
             </h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: "#8b9bb4" }}>
-              Não é falta de vontade. É falta de sistema. FitClub resolve as três causas raízes do
-              abandono.
+            <p style={{ fontSize: "1rem", color: "#8b9bb4", maxWidth: 520, margin: "0 auto" }}>
+              Não é falta de vontade. É falta de sistema. FitClub resolve as três causas raízes do abandono.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="pain-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
             {painPoints.map((p) => (
-              <div
-                key={p.title}
-                className="card-border rounded-2xl p-8"
-                style={{ background: "#0d1520" }}
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-5"
-                  style={{ background: "rgba(0,229,160,0.08)" }}
-                >
-                  {p.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: "#f0f4f8" }}>
-                  {p.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#8b9bb4" }}>
-                  {p.desc}
-                </p>
+              <div key={p.title} className="card" style={{ padding: "1.75rem" }}>
+                <div style={{
+                  width: 48, height: 48, borderRadius: 12,
+                  background: "rgba(0,229,160,0.08)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "1.5rem", marginBottom: "1rem",
+                }}>{p.icon}</div>
+                <h3 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "0.5rem" }}>{p.title}</h3>
+                <p style={{ fontSize: "0.875rem", color: "#8b9bb4", lineHeight: 1.65 }}>{p.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* ── FEATURES ── */}
       <section
         id="features"
-        className="py-24 px-6 grid-bg"
-        style={{ borderTop: "1px solid #1a2332" }}
+        className="grid-dots"
+        style={{ padding: "5rem 1.5rem", borderTop: "1px solid #1a2332" }}
       >
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: "#00e5a0" }}>
-              A solução FitClub
-            </p>
-            <h2
-              className="text-4xl sm:text-5xl font-black leading-tight"
-              style={{ color: "#f0f4f8" }}
-            >
+        <div style={{ maxWidth: 1152, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p className="section-label" style={{ marginBottom: "0.75rem" }}>A solução FitClub</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)", fontWeight: 900, lineHeight: 1.15 }}>
               Tudo que você precisa,{" "}
               <span className="gradient-text">em um lugar</span>
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
             {features.map((f) => (
-              <div
-                key={f.title}
-                className="card-border rounded-2xl p-7 group"
-                style={{ background: "rgba(13, 21, 32, 0.6)" }}
-              >
-                <div
-                  className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-5 transition-all duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(0,229,160,0.1)" }}
-                >
-                  {f.icon}
-                </div>
-                <h3 className="text-base font-bold mb-2" style={{ color: "#f0f4f8" }}>
-                  {f.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "#8b9bb4" }}>
-                  {f.desc}
-                </p>
+              <div key={f.title} className="card" style={{ padding: "1.5rem" }}>
+                <div style={{
+                  width: 44, height: 44, borderRadius: 10,
+                  background: "rgba(0,229,160,0.1)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: "1.375rem", marginBottom: "0.875rem",
+                }}>{f.icon}</div>
+                <h3 style={{ fontWeight: 700, marginBottom: "0.375rem" }}>{f.title}</h3>
+                <p style={{ fontSize: "0.875rem", color: "#8b9bb4", lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-24 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div
-            className="rounded-3xl p-12 relative overflow-hidden"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(0,229,160,0.08) 0%, rgba(0,180,216,0.06) 100%)",
-              border: "1px solid rgba(0,229,160,0.2)",
-            }}
-          >
-            <div
-              className="absolute inset-0 opacity-30"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(0,229,160,0.15) 0%, transparent 70%)",
-              }}
-            />
-            <div className="relative z-10">
-              <h2
-                className="text-4xl sm:text-5xl font-black leading-tight mb-5"
-                style={{ color: "#f0f4f8" }}
-              >
+      {/* ── CTA ── */}
+      <section style={{ padding: "5rem 1.5rem" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <div style={{
+            borderRadius: "1.5rem", padding: "3.5rem 2rem",
+            background: "linear-gradient(135deg, rgba(0,229,160,0.07) 0%, rgba(0,180,216,0.05) 100%)",
+            border: "1px solid rgba(0,229,160,0.18)",
+            textAlign: "center", position: "relative", overflow: "hidden",
+          }}>
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "radial-gradient(ellipse at 50% 0%, rgba(0,229,160,0.12) 0%, transparent 65%)",
+              pointerEvents: "none",
+            }} />
+            <div style={{ position: "relative" }}>
+              <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "1rem" }}>
                 Pronto para a{" "}
                 <span className="gradient-text">transformação?</span>
               </h2>
-              <p className="text-lg mb-8" style={{ color: "#8b9bb4" }}>
-                Junte-se a mais de 50.000 pessoas que já escolheram consistência sobre motivação.
-                Comece grátis hoje.
+              <p style={{ fontSize: "1rem", color: "#8b9bb4", marginBottom: "2rem", maxWidth: 440, margin: "0 auto 2rem" }}>
+                Junte-se a mais de 50.000 pessoas que escolheram consistência sobre motivação.
               </p>
-              <a href="#auth" className="btn-primary inline-block px-10 py-4 rounded-xl text-base">
-                Criar minha conta grátis →
-              </a>
-              <p className="text-xs mt-4" style={{ color: "#8b9bb4" }}>
+              <a href="#auth" className="btn-primary">Criar minha conta grátis →</a>
+              <p style={{ fontSize: "0.75rem", color: "#8b9bb4", marginTop: "1rem" }}>
                 Sem cartão de crédito · Cancele quando quiser
               </p>
             </div>
@@ -299,36 +264,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 px-6" style={{ borderTop: "1px solid #1a2332" }}>
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-black"
-              style={{ background: "linear-gradient(135deg, #00e5a0, #00b4d8)", color: "#080b10" }}
-            >
-              F
-            </div>
-            <span className="font-bold" style={{ color: "#f0f4f8" }}>
-              FitClub
-            </span>
+      {/* ── FOOTER ── */}
+      <footer style={{ borderTop: "1px solid #1a2332", padding: "2.5rem 1.5rem" }}>
+        <div style={{
+          maxWidth: 1152, margin: "0 auto",
+          display: "flex", flexDirection: "column",
+          alignItems: "center", gap: "1.25rem",
+          textAlign: "center",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: 28, height: 28, borderRadius: 7,
+              background: "linear-gradient(135deg,#00e5a0,#00b4d8)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#080b10", fontWeight: 900, fontSize: "0.875rem",
+            }}>F</div>
+            <span style={{ fontWeight: 700 }}>FitClub</span>
           </div>
-          <p className="text-xs" style={{ color: "#8b9bb4" }}>
+          <p style={{ fontSize: "0.75rem", color: "#8b9bb4" }}>
             © 2026 FitClub. Feito com 💪 para a comunidade fitness.
           </p>
-          <div className="flex gap-6 text-xs" style={{ color: "#8b9bb4" }}>
-            <a href="#" className="hover:text-white transition-colors">
-              Privacidade
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Termos
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Suporte
-            </a>
+          <div style={{ display: "flex", gap: "1.5rem" }}>
+            {["Privacidade", "Termos", "Suporte"].map((l) => (
+              <a key={l} href="#" style={{ fontSize: "0.75rem", color: "#8b9bb4", textDecoration: "none" }}
+                onMouseOver={e => (e.currentTarget.style.color = "#f0f4f8")}
+                onMouseOut={e => (e.currentTarget.style.color = "#8b9bb4")}
+              >{l}</a>
+            ))}
           </div>
         </div>
       </footer>
-    </div>
+
+      {/* Responsive overrides */}
+      <style>{`
+        @media (min-width: 640px) {
+          .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+          .pain-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .feat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          footer > div { flex-direction: row !important; justify-content: space-between; text-align: left; }
+        }
+        @media (min-width: 900px) {
+          .hero-inner { grid-template-columns: 1fr 1fr !important; align-items: center; }
+          .feat-grid { grid-template-columns: repeat(4, 1fr) !important; }
+          #auth { max-width: 100% !important; }
+        }
+      `}</style>
+    </main>
   );
 }

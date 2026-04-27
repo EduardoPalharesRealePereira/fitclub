@@ -31,11 +31,7 @@ export default function AuthPanel() {
         options: { data: { full_name: name } },
       });
       if (error) setMessage({ type: "error", text: error.message });
-      else
-        setMessage({
-          type: "success",
-          text: "Conta criada! Verifique seu email para confirmar.",
-        });
+      else setMessage({ type: "success", text: "Conta criada! Verifique seu email para confirmar." });
     }
 
     setLoading(false);
@@ -43,39 +39,51 @@ export default function AuthPanel() {
 
   return (
     <div
-      id="auth"
-      className="card-border rounded-2xl p-8"
-      style={{ background: "rgba(13, 21, 32, 0.85)", backdropFilter: "blur(16px)" }}
+      className="card"
+      style={{ padding: "2rem", backdropFilter: "blur(16px)" }}
     >
-      {/* Tab toggle */}
+      {/* Toggle */}
       <div
-        className="flex rounded-xl p-1 mb-8"
-        style={{ background: "rgba(8, 11, 16, 0.8)", border: "1px solid #1a2332" }}
+        style={{
+          display: "flex",
+          background: "rgba(8,11,16,0.9)",
+          border: "1px solid #1a2332",
+          borderRadius: "0.75rem",
+          padding: "4px",
+          marginBottom: "1.75rem",
+        }}
       >
         {(["login", "register"] as Mode[]).map((m) => (
           <button
             key={m}
             onClick={() => { setMode(m); setMessage(null); }}
-            className="flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 cursor-pointer"
-            style={
-              mode === m
+            style={{
+              flex: 1,
+              padding: "0.625rem",
+              borderRadius: "0.5rem",
+              fontSize: "0.875rem",
+              fontWeight: 600,
+              cursor: "pointer",
+              border: "none",
+              transition: "all 0.2s",
+              ...(mode === m
                 ? {
                     background: "linear-gradient(135deg, #00e5a0, #00c98a)",
                     color: "#080b10",
-                    boxShadow: "0 4px 16px rgba(0,229,160,0.3)",
+                    boxShadow: "0 4px 14px rgba(0,229,160,0.3)",
                   }
-                : { color: "#8b9bb4" }
-            }
+                : { background: "transparent", color: "#8b9bb4" }),
+            }}
           >
             {m === "login" ? "Entrar" : "Criar conta"}
           </button>
         ))}
       </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
         {mode === "register" && (
           <div>
-            <label className="block text-xs font-medium mb-2" style={{ color: "#8b9bb4" }}>
+            <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 500, color: "#8b9bb4", marginBottom: "0.5rem" }}>
               Nome completo
             </label>
             <input
@@ -84,13 +92,13 @@ export default function AuthPanel() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Seu nome"
               required
-              className="input-field w-full px-4 py-3 rounded-xl text-sm"
+              className="field"
             />
           </div>
         )}
 
         <div>
-          <label className="block text-xs font-medium mb-2" style={{ color: "#8b9bb4" }}>
+          <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 500, color: "#8b9bb4", marginBottom: "0.5rem" }}>
             Email
           </label>
           <input
@@ -99,12 +107,12 @@ export default function AuthPanel() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="seu@email.com"
             required
-            className="input-field w-full px-4 py-3 rounded-xl text-sm"
+            className="field"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium mb-2" style={{ color: "#8b9bb4" }}>
+          <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 500, color: "#8b9bb4", marginBottom: "0.5rem" }}>
             Senha
           </label>
           <input
@@ -114,18 +122,18 @@ export default function AuthPanel() {
             placeholder={mode === "register" ? "Mínimo 8 caracteres" : "••••••••"}
             required
             minLength={mode === "register" ? 8 : 6}
-            className="input-field w-full px-4 py-3 rounded-xl text-sm"
+            className="field"
           />
         </div>
 
         {message && (
           <div
-            className="px-4 py-3 rounded-xl text-sm font-medium"
             style={{
-              background:
-                message.type === "success"
-                  ? "rgba(0, 229, 160, 0.1)"
-                  : "rgba(255, 80, 80, 0.1)",
+              padding: "0.75rem 1rem",
+              borderRadius: "0.75rem",
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              background: message.type === "success" ? "rgba(0,229,160,0.1)" : "rgba(255,80,80,0.1)",
               border: `1px solid ${message.type === "success" ? "rgba(0,229,160,0.3)" : "rgba(255,80,80,0.3)"}`,
               color: message.type === "success" ? "#00e5a0" : "#ff6b6b",
             }}
@@ -137,31 +145,32 @@ export default function AuthPanel() {
         <button
           type="submit"
           disabled={loading}
-          className="btn-primary w-full py-3.5 rounded-xl text-sm mt-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+          className="btn-primary"
+          style={{
+            width: "100%",
+            marginTop: "0.25rem",
+            opacity: loading ? 0.6 : 1,
+            cursor: loading ? "not-allowed" : "pointer",
+          }}
         >
-          {loading
-            ? "Aguarde..."
-            : mode === "login"
-            ? "Entrar no FitClub"
-            : "Começar agora — grátis"}
+          {loading ? "Aguarde..." : mode === "login" ? "Entrar no FitClub" : "Começar agora — grátis"}
         </button>
       </form>
 
       {mode === "login" && (
-        <p className="text-center text-xs mt-5" style={{ color: "#8b9bb4" }}>
+        <p style={{ textAlign: "center", fontSize: "0.75rem", marginTop: "1.25rem", color: "#8b9bb4" }}>
           Esqueceu a senha?{" "}
-          <button className="cursor-pointer" style={{ color: "#00e5a0" }}>
+          <button style={{ background: "none", border: "none", color: "#00e5a0", cursor: "pointer", fontWeight: 600 }}>
             Recuperar acesso
           </button>
         </p>
       )}
 
-      <p className="text-center text-xs mt-4" style={{ color: "#8b9bb4" }}>
+      <p style={{ textAlign: "center", fontSize: "0.75rem", marginTop: "1rem", color: "#8b9bb4" }}>
         {mode === "login" ? "Ainda não tem conta?" : "Já tem uma conta?"}{" "}
         <button
           onClick={() => { setMode(mode === "login" ? "register" : "login"); setMessage(null); }}
-          className="font-semibold cursor-pointer"
-          style={{ color: "#00e5a0" }}
+          style={{ background: "none", border: "none", color: "#00e5a0", cursor: "pointer", fontWeight: 700 }}
         >
           {mode === "login" ? "Criar agora" : "Entrar"}
         </button>
