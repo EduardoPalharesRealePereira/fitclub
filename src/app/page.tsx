@@ -286,10 +286,7 @@ export default function Home() {
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Privacidade", "Termos", "Suporte"].map((l) => (
-              <a key={l} href="#" style={{ fontSize: "0.75rem", color: "#8b9bb4", textDecoration: "none" }}
-                onMouseOver={e => (e.currentTarget.style.color = "#f0f4f8")}
-                onMouseOut={e => (e.currentTarget.style.color = "#8b9bb4")}
-              >{l}</a>
+              <a key={l} href="#" className="footer-link">{l}</a>
             ))}
           </div>
         </div>

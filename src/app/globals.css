@@ -134,4 +134,15 @@ body {
     text-transform: uppercase;
     color: var(--green);
   }
+
+  .footer-link {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: var(--text);
+  }
 }
