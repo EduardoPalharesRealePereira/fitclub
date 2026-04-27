@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 type Mode = "login" | "register";
@@ -14,6 +15,7 @@ export default function AuthPanel() {
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   const supabase = createClient();
+  const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -22,8 +24,12 @@ export default function AuthPanel() {
 
     if (mode === "login") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) setMessage({ type: "error", text: error.message });
-      else setMessage({ type: "success", text: "Bem-vindo de volta! 💪" });
+      if (error) {
+        setMessage({ type: "error", text: error.message });
+      } else {
+        router.push("/dashboard");
+        return;
+      }
     } else {
       // Usa Edge Function para criar usuário sem email de confirmação
       const res = await fetch(
@@ -43,7 +49,8 @@ export default function AuthPanel() {
         if (data.session) {
           await supabase.auth.setSession(data.session);
         }
-        setMessage({ type: "success", text: "Conta criada! Bem-vindo ao FitClub 🎉" });
+        router.push("/dashboard");
+        return;
       }
     }
 
