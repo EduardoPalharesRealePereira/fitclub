@@ -23,15 +23,28 @@ export default function AuthPanel() {
     if (mode === "login") {
       const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) setMessage({ type: "error", text: error.message });
-      else setMessage({ type: "success", text: "Login realizado! Redirecionando..." });
+      else setMessage({ type: "success", text: "Bem-vindo de volta! 💪" });
     } else {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { full_name: name } },
-      });
-      if (error) setMessage({ type: "error", text: error.message });
-      else setMessage({ type: "success", text: "Conta criada! Verifique seu email para confirmar." });
+      // Usa Edge Function para criar usuário sem email de confirmação
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password, full_name: name }),
+        }
+      );
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        setMessage({ type: "error", text: data.error ?? "Erro ao criar conta." });
+      } else {
+        // Seta a sessão recebida da Edge Function
+        if (data.session) {
+          await supabase.auth.setSession(data.session);
+        }
+        setMessage({ type: "success", text: "Conta criada! Bem-vindo ao FitClub 🎉" });
+      }
     }
 
     setLoading(false);
