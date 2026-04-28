@@ -103,13 +103,13 @@ export default function DashboardShell({ user, initialProfile }: Props) {
             style={{
               display: "flex", alignItems: "center", gap: "0.5rem",
               padding: "0.5rem 1.125rem",
-              borderRadius: 10, border: "none", cursor: "pointer",
+              borderRadius: 10, cursor: "pointer",
               fontSize: "0.875rem", fontWeight: 600,
               whiteSpace: "nowrap",
               transition: "all 0.2s",
               ...(tab === t.id
                 ? { background: "rgba(0,229,160,0.12)", color: "#00e5a0", border: "1px solid rgba(0,229,160,0.3)" }
-                : { background: "transparent", color: "#8b9bb4" }),
+                : { background: "transparent", color: "#8b9bb4", border: "none" }),
             }}
           >
             <span>{t.icon}</span>
