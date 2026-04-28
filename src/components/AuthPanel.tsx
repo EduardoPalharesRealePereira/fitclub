@@ -60,7 +60,7 @@ export default function AuthPanel() {
   return (
     <div
       className="card"
-      style={{ padding: "2rem", backdropFilter: "blur(16px)" }}
+      style={{ padding: "1.5rem", backdropFilter: "blur(16px)", width: "100%" }}
     >
       {/* Toggle */}
       <div
