@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+const GEMINI_API = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 function buildSystemPrompt(profile: Record<string, string>, mode: "chat" | "workout" | "diet") {
   const profileText = profile
@@ -21,7 +21,7 @@ function buildSystemPrompt(profile: Record<string, string>, mode: "chat" | "work
 
 ${profileText}
 
-IMPORTANTE: Responda APENAS com um JSON válido, sem texto antes ou depois. Use exatamente este formato:
+IMPORTANTE: Responda APENAS com um JSON válido, sem texto antes ou depois, sem markdown, sem blocos de código. Use exatamente este formato:
 {
   "name": "Nome da ficha (ex: Hipertrofia Intermediária 5x)",
   "frequency": "X dias por semana",
@@ -49,7 +49,7 @@ IMPORTANTE: Responda APENAS com um JSON válido, sem texto antes ou depois. Use 
 
 ${profileText}
 
-IMPORTANTE: Responda APENAS com um JSON válido, sem texto antes ou depois. Use exatamente este formato:
+IMPORTANTE: Responda APENAS com um JSON válido, sem texto antes ou depois, sem markdown, sem blocos de código. Use exatamente este formato:
 {
   "calories": 2500,
   "protein": 150,
@@ -85,35 +85,40 @@ export async function POST(req: NextRequest) {
 
     const { messages, profile, mode = "chat" } = await req.json();
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json(
-        { error: "ANTHROPIC_API_KEY não configurada." },
-        { status: 503 }
-      );
+      return NextResponse.json({ error: "GEMINI_API_KEY não configurada." }, { status: 503 });
     }
 
-    const response = await fetch(ANTHROPIC_API, {
+    const systemPrompt = buildSystemPrompt(profile || {}, mode);
+
+    // Gemini usa system prompt como primeira troca de mensagens
+    const geminiContents = [
+      { role: "user",  parts: [{ text: systemPrompt }] },
+      { role: "model", parts: [{ text: "Entendido! Estou pronto para ajudar." }] },
+      ...messages.map((m: { role: string; content: string }) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      })),
+    ];
+
+    const response = await fetch(`${GEMINI_API}?key=${apiKey}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        system: buildSystemPrompt(profile || {}, mode),
-        messages,
+        contents: geminiContents,
+        generationConfig: { maxOutputTokens: 4096, temperature: 0.7 },
       }),
     });
 
     const data = await response.json();
     if (!response.ok) {
-      return NextResponse.json({ error: data.error?.message || "Erro na API" }, { status: response.status });
+      return NextResponse.json({ error: data.error?.message || "Erro na API Gemini" }, { status: response.status });
     }
 
-    const text = data.content?.[0]?.text ?? "";
+    // Limpa possíveis blocos markdown que o Gemini às vezes retorna
+    let text: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    text = text.replace(/^```(?:json)?\n?/i, "").replace(/\n?```$/i, "").trim();
 
     // Salva plano no Supabase se for geração de ficha/dieta
     if (mode === "workout" || mode === "diet") {
@@ -121,7 +126,7 @@ export async function POST(req: NextRequest) {
         const parsed = JSON.parse(text);
         const col = mode === "workout" ? "workout_plan" : "diet_plan";
         await supabase.from("users").update({ [col]: parsed }).eq("id", user.id);
-      } catch {}
+      } catch { /* JSON inválido — ignora */ }
     }
 
     return NextResponse.json({ text });
