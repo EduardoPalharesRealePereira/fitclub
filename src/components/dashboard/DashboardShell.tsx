@@ -117,10 +117,12 @@ export default function DashboardShell({ user, initialProfile }: Props) {
   const workout = wp as { days?: { day: string; focus: string; exercises?: unknown[] }[]; name?: string } | null;
 
   return (
+    <div style={{ minHeight: "100vh", background: "#060810" }}>
     <div style={{
       minHeight: "100vh", background: "#080b10", color: "#f0f4f8",
       display: "flex", flexDirection: "column",
-      maxWidth: 520, margin: "0 auto",
+      maxWidth: 480, margin: "0 auto",
+      boxShadow: "0 0 80px rgba(0,0,0,0.8)",
     }}>
 
       {/* ── TOP HEADER ── */}
@@ -376,6 +378,7 @@ export default function DashboardShell({ user, initialProfile }: Props) {
           );
         })}
       </nav>
+    </div>
     </div>
   );
 }
