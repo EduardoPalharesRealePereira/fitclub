@@ -106,11 +106,58 @@ export default function DashboardShell({ user, initialProfile }: Props) {
   const dp = profile?.diet_plan as Record<string, unknown> | null;
   const userName = fp?.name || user.email.split("@")[0];
 
-  function handleProfileSaved(u: Record<string, unknown>) { setProfile((p) => ({ ...p, ...u })); }
+  function handleProfileSaved(u: Record<string, unknown>, isFirstTime: boolean) {
+    setProfile((p) => ({ ...p, ...u }));
+    if (isFirstTime) setTab("home");
+  }
   function handlePlanUpdated(type: "workout" | "diet", data: Record<string, unknown>) {
     setProfile((p) => ({ ...p, [`${type}_plan`]: data }));
   }
   async function signOut() { await supabase.auth.signOut(); router.push("/"); }
+
+  // Show onboarding if no profile yet
+  if (!fp) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#060810" }}>
+      <div style={{
+        minHeight: "100vh", background: "#080b10", color: "#f0f4f8",
+        display: "flex", flexDirection: "column",
+        maxWidth: 480, margin: "0 auto",
+        boxShadow: "0 0 80px rgba(0,0,0,0.8)",
+      }}>
+        <header style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "0.875rem 1.25rem",
+          borderBottom: "1px solid #0f1922",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <div style={{
+              width: 30, height: 30, borderRadius: 8,
+              background: "linear-gradient(135deg,#00e5a0,#00b4d8)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              color: "#080b10", fontWeight: 900, fontSize: "0.875rem",
+            }}>F</div>
+            <span style={{ fontWeight: 800, fontSize: "1rem" }}>FitClub</span>
+          </div>
+          <button onClick={signOut} style={{ background: "none", border: "none", color: "#4a5568", fontSize: "0.8125rem", cursor: "pointer" }}>Sair</button>
+        </header>
+
+        <div style={{ flex: 1, overflowY: "auto", padding: "1.5rem" }}>
+          <div style={{ marginBottom: "1.75rem" }}>
+            <p style={{ fontSize: "0.8125rem", color: "#8b9bb4", marginBottom: "0.25rem" }}>Bem-vindo ao FitClub 👋</p>
+            <h1 style={{ fontSize: "1.625rem", fontWeight: 900, letterSpacing: "-0.03em", marginBottom: "0.5rem" }}>
+              Configure seu perfil
+            </h1>
+            <p style={{ fontSize: "0.875rem", color: "#8b9bb4", lineHeight: 1.6 }}>
+              A IA precisa dessas informações para criar seu treino e dieta personalizados.
+            </p>
+          </div>
+          <ProfileSetup userId={user.id} fitnessProfile={null} onSaved={handleProfileSaved} />
+        </div>
+      </div>
+      </div>
+    );
+  }
 
   // typed aliases for home
   const diet = dp as Record<string, number> & { meals?: unknown[] } | null;
