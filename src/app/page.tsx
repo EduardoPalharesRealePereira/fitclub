@@ -220,10 +220,11 @@ export default function Home() {
       <section style={{ padding: "4rem 1.25rem" }}>
         <div style={{ maxWidth: 680, margin: "0 auto" }}>
           <div style={{
-            borderRadius: "1.25rem", padding: "3rem 1.5rem",
+            borderRadius: "1.25rem", padding: "3rem 1.25rem",
             background: "linear-gradient(135deg, rgba(0,229,160,0.07) 0%, rgba(0,180,216,0.05) 100%)",
             border: "1px solid rgba(0,229,160,0.18)",
             textAlign: "center", position: "relative", overflow: "hidden",
+            boxSizing: "border-box",
           }}>
             <div style={{
               position: "absolute", inset: 0,
@@ -238,7 +239,7 @@ export default function Home() {
               <p style={{ fontSize: "0.9375rem", color: "#8b9bb4", marginBottom: "1.75rem" }}>
                 Junte-se a mais de 50.000 pessoas que escolheram consistência sobre motivação.
               </p>
-              <a href="#auth" className="btn-primary">Criar minha conta grátis →</a>
+              <a href="#auth" className="btn-primary" style={{ maxWidth: "100%", width: "fit-content", margin: "0 auto", display: "flex" }}>Criar minha conta grátis →</a>
               <p style={{ fontSize: "0.75rem", color: "#8b9bb4", marginTop: "0.875rem" }}>
                 Sem cartão de crédito · Cancele quando quiser
               </p>
