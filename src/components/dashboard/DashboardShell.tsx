@@ -106,9 +106,9 @@ export default function DashboardShell({ user, initialProfile }: Props) {
   const dp = profile?.diet_plan as Record<string, unknown> | null;
   const userName = fp?.name || user.email.split("@")[0];
 
-  function handleProfileSaved(u: Record<string, unknown>, isFirstTime: boolean) {
+  function handleProfileSaved(u: Record<string, unknown>) {
     setProfile((p) => ({ ...p, ...u }));
-    if (isFirstTime) setTab("home");
+    setTab("home");
   }
   function handlePlanUpdated(type: "workout" | "diet", data: Record<string, unknown>) {
     setProfile((p) => ({ ...p, [`${type}_plan`]: data }));
@@ -152,7 +152,7 @@ export default function DashboardShell({ user, initialProfile }: Props) {
               A IA precisa dessas informações para criar seu treino e dieta personalizados.
             </p>
           </div>
-          <ProfileSetup userId={user.id} fitnessProfile={null} onSaved={handleProfileSaved} />
+          <ProfileSetup userId={user.id} fitnessProfile={null} defaultName={profile?.full_name as string || ""} onSaved={handleProfileSaved} />
         </div>
       </div>
       </div>

@@ -20,12 +20,13 @@ const levels = [
 interface Props {
   userId: string;
   fitnessProfile: Record<string, string> | null;
-  onSaved: (data: Record<string, unknown>, isFirstTime: boolean) => void;
+  defaultName?: string;
+  onSaved: (data: Record<string, unknown>) => void;
 }
 
-export default function ProfileSetup({ userId, fitnessProfile, onSaved }: Props) {
+export default function ProfileSetup({ userId, fitnessProfile, defaultName = "", onSaved }: Props) {
   const [form, setForm] = useState({
-    name:   fitnessProfile?.name   || "",
+    name:   fitnessProfile?.name   || defaultName,
     age:    fitnessProfile?.age    || "",
     sex:    fitnessProfile?.sex    || "",
     weight: fitnessProfile?.weight || "",
@@ -64,7 +65,7 @@ export default function ProfileSetup({ userId, fitnessProfile, onSaved }: Props)
       .eq("id", userId);
 
     if (!dbErr) {
-      onSaved({ fitness_profile: form }, isFirstTime);
+      onSaved({ fitness_profile: form });
     } else {
       setError("Erro ao salvar. Tente novamente.");
     }
