@@ -110,7 +110,7 @@ body {
 
   .field {
     width: 100%;
-    background: rgba(13, 21, 32, 0.95);
+    background: #0d1520;
     border: 1px solid var(--border);
     border-radius: 0.75rem;
     color: var(--text);
@@ -127,6 +127,18 @@ body {
   .field:focus {
     border-color: var(--green);
     box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.12);
+  }
+
+  /* Fix browser autofill overriding dark background */
+  .field:-webkit-autofill,
+  .field:-webkit-autofill:hover,
+  .field:-webkit-autofill:focus,
+  .field:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 9999px #0d1520 inset !important;
+    -webkit-text-fill-color: #f0f4f8 !important;
+    caret-color: #f0f4f8;
+    border-color: var(--border) !important;
+    transition: background-color 9999s ease-in-out 0s;
   }
 
   .grid-dots {

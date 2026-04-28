@@ -113,6 +113,7 @@ export default function AuthPanel() {
               placeholder="Seu nome"
               required
               className="field"
+            style={{ colorScheme: "dark" }}
             />
           </div>
         )}
