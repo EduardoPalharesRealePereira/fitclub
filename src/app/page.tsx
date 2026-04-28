@@ -1,53 +1,20 @@
 import AuthPanel from "@/components/AuthPanel";
 
-const painPoints = [
-  {
-    icon: "🗓️",
-    title: "Sem consistência",
-    desc: "Começar é fácil. Manter é o desafio. A maioria abandona em 3 semanas por falta de estrutura.",
-  },
-  {
-    icon: "🤷",
-    title: "Sozinho no processo",
-    desc: "Sem comunidade e accountability, as desculpas vencem antes do resultado.",
-  },
-  {
-    icon: "📊",
-    title: "Zero visibilidade",
-    desc: "Sem dados claros, você repete os mesmos erros semana após semana.",
-  },
-];
-
-const features = [
-  { icon: "⚡", title: "Treinos inteligentes", desc: "IA que adapta sua rotina ao nível e objetivo." },
-  { icon: "🏆", title: "Comunidade ativa", desc: "Streaks, rankings e conquistas para te manter no jogo." },
-  { icon: "📈", title: "Progresso visível", desc: "Métricas de força, resistência e composição corporal." },
-  { icon: "🧠", title: "Wellness 360°", desc: "Sono, nutrição e saúde mental em um único app." },
-];
-
-const stats = [
-  { value: "50k+", label: "Atletas ativos" },
-  { value: "2.1M", label: "Treinos realizados" },
-  { value: "94%", label: "Taxa de retenção" },
-  { value: "4.9★", label: "Avaliação" },
-];
-
 export default function Home() {
   return (
-    <main style={{ background: "#080b10", minHeight: "100vh", color: "#f0f4f8" }}>
+    <div style={{ background: "#080b10", minHeight: "100vh", color: "#f0f4f8", fontFamily: "system-ui, -apple-system, sans-serif" }}>
 
       {/* ── NAVBAR ── */}
       <header style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        padding: "0.875rem 1.25rem",
-        background: "rgba(8,11,16,0.92)",
-        backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(0,229,160,0.08)",
+        padding: "0.875rem 1.5rem",
+        background: "rgba(8,11,16,0.9)", backdropFilter: "blur(20px)",
+        borderBottom: "1px solid #0f1922",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
           <div style={{
-            width: 32, height: 32, borderRadius: 8,
+            width: 32, height: 32, borderRadius: 9,
             background: "linear-gradient(135deg,#00e5a0,#00b4d8)",
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "#080b10", fontWeight: 900, fontSize: "1rem",
@@ -60,128 +27,132 @@ export default function Home() {
       </header>
 
       {/* ── HERO ── */}
-      <section className="grid-dots" style={{ paddingTop: "5rem", position: "relative", overflow: "hidden" }}>
-        {/* Glow orbs */}
-        <div style={{
-          position: "absolute", top: "5%", left: "10%",
-          width: 300, height: 300, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(0,229,160,0.07) 0%, transparent 70%)",
-          filter: "blur(50px)", pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute", top: "30%", right: "5%",
-          width: 240, height: 240, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(0,180,216,0.05) 0%, transparent 70%)",
-          filter: "blur(50px)", pointerEvents: "none",
-        }} />
+      <section style={{ paddingTop: "5rem", minHeight: "100vh", display: "flex", alignItems: "center" }}>
+        <div style={{ width: "100%", maxWidth: 1100, margin: "0 auto", padding: "2rem 1.5rem" }}>
+          <div className="hero-inner" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "3rem", alignItems: "center" }}>
 
-        {/* Hero content: stacks on mobile, side-by-side on desktop */}
-        <div className="hero-inner" style={{
-          maxWidth: 1100, margin: "0 auto",
-          padding: "2rem 1.25rem 4rem",
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: "2.5rem",
-        }}>
+            {/* Left — text */}
+            <div>
+              {/* Badge */}
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: "0.5rem",
+                padding: "0.35rem 0.875rem", borderRadius: 999,
+                background: "rgba(0,229,160,0.08)", border: "1px solid rgba(0,229,160,0.2)",
+                color: "#00e5a0", fontSize: "0.75rem", fontWeight: 700, marginBottom: "1.5rem",
+              }}>
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#00e5a0", display: "inline-block", animation: "pulse-dot 1.8s ease-in-out infinite" }} />
+                Personal trainer + nutricionista com IA
+              </div>
 
-          {/* Text col */}
-          <div>
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: "0.5rem",
-              padding: "0.375rem 0.875rem", borderRadius: 999,
-              background: "rgba(0,229,160,0.1)", border: "1px solid rgba(0,229,160,0.25)",
-              color: "#00e5a0", fontSize: "0.7rem", fontWeight: 700, marginBottom: "1.25rem",
-            }}>
-              <span style={{
-                width: 6, height: 6, borderRadius: "50%", background: "#00e5a0",
-                display: "inline-block", animation: "pulse-dot 1.8s ease-in-out infinite",
-              }} />
-              App #1 de fitness com comunidade no Brasil
+              <h1 style={{
+                fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 900,
+                lineHeight: 1.06, letterSpacing: "-0.04em", marginBottom: "1.25rem",
+              }}>
+                Seu corpo.<br />
+                <span className="gradient-text">Seu plano.</span><br />
+                Sua evolução.
+              </h1>
+
+              <p style={{ fontSize: "1.0625rem", color: "#8b9bb4", lineHeight: 1.7, marginBottom: "2rem", maxWidth: 440 }}>
+                FitClub usa inteligência artificial para criar treinos e dietas 100% personalizados para o seu corpo, objetivo e rotina.
+              </p>
+
+              <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
+                <a href="#auth" className="btn-primary">Criar conta grátis →</a>
+                <a href="#como-funciona" className="btn-ghost">Ver como funciona</a>
+              </div>
+
+              {/* Social proof */}
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                <div style={{ display: "flex" }}>
+                  {["💪","🔥","⚡","🏃","🧠"].map((e, i) => (
+                    <div key={i} style={{
+                      width: 32, height: 32, borderRadius: "50%",
+                      background: "#0d1520", border: "2px solid #0f1922",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      fontSize: "0.8125rem", marginLeft: i > 0 ? -9 : 0,
+                    }}>{e}</div>
+                  ))}
+                </div>
+                <div>
+                  <p style={{ fontSize: "0.875rem", fontWeight: 700 }}>+50.000 atletas</p>
+                  <p style={{ fontSize: "0.75rem", color: "#8b9bb4" }}>já transformaram seu corpo</p>
+                </div>
+              </div>
             </div>
 
-            <h1 style={{
-              fontSize: "clamp(2rem, 6vw, 3.5rem)",
-              fontWeight: 900, lineHeight: 1.1,
-              letterSpacing: "-0.03em", marginBottom: "1rem",
-            }}>
-              Seu melhor eu{" "}
-              <span className="gradient-text">começa aqui.</span>
-            </h1>
+            {/* Right — App mockup */}
+            <div id="auth" style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {/* Auth panel */}
+              <AuthPanel />
 
-            <p style={{ fontSize: "0.9375rem", lineHeight: 1.7, color: "#8b9bb4", marginBottom: "1.75rem" }}>
-              FitClub une tecnologia adaptativa, comunidade real e dados inteligentes
-              para transformar sua jornada fitness — sem achismos, sem abandono.
-            </p>
-
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "1.75rem" }}>
-              <a href="#auth" className="btn-primary" style={{ fontSize: "0.875rem" }}>Começar grátis →</a>
-              <a href="#features" className="btn-ghost" style={{ fontSize: "0.875rem" }}>Como funciona</a>
-            </div>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-              <div style={{ display: "flex" }}>
-                {["💪","🔥","⚡","🏃"].map((e, i) => (
-                  <div key={i} style={{
-                    width: 32, height: 32, borderRadius: "50%",
-                    background: "#0d1520", border: "2px solid #1a2332",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "0.8125rem", marginLeft: i > 0 ? -9 : 0,
-                  }}>{e}</div>
+              {/* Mini stats below auth */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.625rem" }}>
+                {[
+                  { value: "50k+", label: "Atletas" },
+                  { value: "4.9★", label: "Avaliação" },
+                  { value: "94%", label: "Retêm" },
+                ].map((s) => (
+                  <div key={s.label} style={{
+                    background: "#0d1520", border: "1px solid #1a2332",
+                    borderRadius: 12, padding: "0.75rem", textAlign: "center",
+                  }}>
+                    <p style={{ fontSize: "1rem", fontWeight: 900, color: "#00e5a0" }}>{s.value}</p>
+                    <p style={{ fontSize: "0.6875rem", color: "#8b9bb4", marginTop: "0.125rem" }}>{s.label}</p>
+                  </div>
                 ))}
               </div>
-              <span style={{ fontSize: "0.8125rem", color: "#8b9bb4" }}>
-                <strong style={{ color: "#00e5a0" }}>+50.000</strong> atletas transformados
-              </span>
             </div>
-          </div>
-
-          {/* Auth col */}
-          <div id="auth">
-            <AuthPanel />
           </div>
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <section style={{ borderTop: "1px solid #1a2332", borderBottom: "1px solid #1a2332" }}>
-        <div className="stats-grid" style={{
-          maxWidth: 1100, margin: "0 auto", padding: "2.5rem 1.25rem",
-          display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem",
-        }}>
-          {stats.map((s) => (
-            <div key={s.label} style={{ textAlign: "center" }}>
-              <p className="gradient-text" style={{ fontSize: "clamp(1.75rem, 4vw, 2.25rem)", fontWeight: 900, lineHeight: 1.1 }}>{s.value}</p>
-              <p style={{ fontSize: "0.8125rem", color: "#8b9bb4", marginTop: "0.25rem" }}>{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PAIN POINTS ── */}
-      <section style={{ padding: "4rem 1.25rem" }}>
+      {/* ── COMO FUNCIONA ── */}
+      <section id="como-funciona" style={{ padding: "5rem 1.5rem", borderTop: "1px solid #0f1922" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <p className="section-label" style={{ marginBottom: "0.625rem" }}>O problema que todo mundo conhece</p>
-            <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.75rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "0.875rem" }}>
-              Por que 80% desistem{" "}
-              <span className="gradient-text">do fitness?</span>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p style={{ fontSize: "0.6875rem", fontWeight: 700, color: "#00e5a0", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "0.75rem" }}>Como funciona</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.03em" }}>
+              3 passos para<br /><span className="gradient-text">mudar de vida</span>
             </h2>
-            <p style={{ fontSize: "0.9375rem", color: "#8b9bb4", maxWidth: 500, margin: "0 auto" }}>
-              Não é falta de vontade. É falta de sistema. FitClub resolve as três causas raízes do abandono.
-            </p>
           </div>
 
-          <div className="pain-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
-            {painPoints.map((p) => (
-              <div key={p.title} className="card" style={{ padding: "1.5rem" }}>
+          <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
+            {[
+              {
+                step: "01",
+                icon: "👤",
+                title: "Crie seu perfil",
+                desc: "Informe seu peso, altura, objetivo e nível de experiência. Leva menos de 2 minutos.",
+              },
+              {
+                step: "02",
+                icon: "🤖",
+                title: "IA monta seu plano",
+                desc: "Nossa IA gera treino semanal e dieta completa 100% personalizados para você.",
+              },
+              {
+                step: "03",
+                icon: "📈",
+                title: "Execute e evolua",
+                desc: "Siga o plano, tire dúvidas no chat e regenere sempre que quiser mudar.",
+              },
+            ].map((item, i) => (
+              <div key={i} style={{
+                background: "#0d1520", border: "1px solid #1a2332",
+                borderRadius: 20, padding: "1.5rem",
+                display: "flex", gap: "1.25rem", alignItems: "flex-start",
+              }}>
                 <div style={{
-                  width: 44, height: 44, borderRadius: 11,
-                  background: "rgba(0,229,160,0.08)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: "1.375rem", marginBottom: "0.875rem",
-                }}>{p.icon}</div>
-                <h3 style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.4rem" }}>{p.title}</h3>
-                <p style={{ fontSize: "0.875rem", color: "#8b9bb4", lineHeight: 1.65 }}>{p.desc}</p>
+                  width: 48, height: 48, borderRadius: 14, flexShrink: 0,
+                  background: "rgba(0,229,160,0.08)", border: "1px solid rgba(0,229,160,0.12)",
+                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.5rem",
+                }}>{item.icon}</div>
+                <div>
+                  <p style={{ fontSize: "0.625rem", fontWeight: 800, color: "#00e5a0", letterSpacing: "0.1em", marginBottom: "0.375rem" }}>PASSO {item.step}</p>
+                  <h3 style={{ fontWeight: 800, fontSize: "1rem", marginBottom: "0.375rem" }}>{item.title}</h3>
+                  <p style={{ fontSize: "0.875rem", color: "#8b9bb4", lineHeight: 1.6 }}>{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -189,26 +160,33 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="grid-dots" style={{ padding: "4rem 1.25rem", borderTop: "1px solid #1a2332" }}>
+      <section style={{ padding: "5rem 1.5rem", borderTop: "1px solid #0f1922", background: "rgba(13,21,32,0.4)" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-            <p className="section-label" style={{ marginBottom: "0.625rem" }}>A solução FitClub</p>
-            <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.75rem)", fontWeight: 900, lineHeight: 1.15 }}>
-              Tudo que você precisa,{" "}
-              <span className="gradient-text">em um lugar</span>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <p style={{ fontSize: "0.6875rem", fontWeight: 700, color: "#00e5a0", textTransform: "uppercase", letterSpacing: "0.12em", marginBottom: "0.75rem" }}>O que você tem</p>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.03em" }}>
+              Tudo que você precisa,<br /><span className="gradient-text">em um app</span>
             </h2>
           </div>
 
-          <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
-            {features.map((f) => (
-              <div key={f.title} className="card" style={{ padding: "1.25rem" }}>
+          <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.875rem" }}>
+            {[
+              { icon: "🤖", title: "IA Personal Trainer", desc: "Chat direto com IA especialista em treino e nutrição, disponível 24h." },
+              { icon: "💪", title: "Ficha de treino", desc: "Treino semanal completo gerado por IA, com exercícios, séries e dicas." },
+              { icon: "🥗", title: "Plano alimentar", desc: "Dieta personalizada com macros, refeições e horários definidos." },
+              { icon: "📊", title: "Macros e calorias", desc: "Proteína, carboidrato e gordura balanceados para o seu objetivo." },
+            ].map((f) => (
+              <div key={f.title} style={{
+                background: "#0d1520", border: "1px solid #1a2332",
+                borderRadius: 18, padding: "1.25rem",
+              }}>
                 <div style={{
-                  width: 40, height: 40, borderRadius: 10,
-                  background: "rgba(0,229,160,0.1)",
+                  width: 40, height: 40, borderRadius: 11,
+                  background: "rgba(0,229,160,0.08)",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: "1.25rem", marginBottom: "0.75rem",
                 }}>{f.icon}</div>
-                <h3 style={{ fontWeight: 700, marginBottom: "0.35rem", fontSize: "0.9375rem" }}>{f.title}</h3>
+                <h3 style={{ fontWeight: 700, fontSize: "0.9375rem", marginBottom: "0.375rem" }}>{f.title}</h3>
                 <p style={{ fontSize: "0.8125rem", color: "#8b9bb4", lineHeight: 1.6 }}>{f.desc}</p>
               </div>
             ))}
@@ -216,57 +194,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section style={{ padding: "4rem 1.25rem" }}>
-        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+      {/* ── CTA FINAL ── */}
+      <section style={{ padding: "5rem 1.5rem", borderTop: "1px solid #0f1922" }}>
+        <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
           <div style={{
-            borderRadius: "1.25rem", padding: "3rem 1.25rem",
-            background: "linear-gradient(135deg, rgba(0,229,160,0.07) 0%, rgba(0,180,216,0.05) 100%)",
-            border: "1px solid rgba(0,229,160,0.18)",
-            textAlign: "center", position: "relative", overflow: "hidden",
-            boxSizing: "border-box",
+            background: "linear-gradient(135deg, rgba(0,229,160,0.08), rgba(0,180,216,0.05))",
+            border: "1px solid rgba(0,229,160,0.15)", borderRadius: 24, padding: "3rem 1.5rem",
           }}>
-            <div style={{
-              position: "absolute", inset: 0,
-              background: "radial-gradient(ellipse at 50% 0%, rgba(0,229,160,0.12) 0%, transparent 65%)",
-              pointerEvents: "none",
-            }} />
-            <div style={{ position: "relative" }}>
-              <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.5rem)", fontWeight: 900, lineHeight: 1.15, marginBottom: "0.875rem" }}>
-                Pronto para a{" "}
-                <span className="gradient-text">transformação?</span>
-              </h2>
-              <p style={{ fontSize: "0.9375rem", color: "#8b9bb4", marginBottom: "1.75rem" }}>
-                Junte-se a mais de 50.000 pessoas que escolheram consistência sobre motivação.
-              </p>
-              <a href="#auth" className="btn-primary" style={{ maxWidth: "100%", width: "fit-content", margin: "0 auto", display: "flex" }}>Criar minha conta grátis →</a>
-              <p style={{ fontSize: "0.75rem", color: "#8b9bb4", marginTop: "0.875rem" }}>
-                Sem cartão de crédito · Cancele quando quiser
-              </p>
-            </div>
+            <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🚀</div>
+            <h2 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", fontWeight: 900, lineHeight: 1.15, letterSpacing: "-0.03em", marginBottom: "0.875rem" }}>
+              Pronto para começar?
+            </h2>
+            <p style={{ fontSize: "0.9375rem", color: "#8b9bb4", marginBottom: "2rem", lineHeight: 1.6 }}>
+              Crie sua conta grátis e tenha seu treino e dieta prontos em menos de 1 minuto.
+            </p>
+            <a href="#auth" className="btn-primary" style={{ margin: "0 auto", display: "inline-flex" }}>
+              Criar minha conta →
+            </a>
+            <p style={{ fontSize: "0.75rem", color: "#8b9bb4", marginTop: "1rem" }}>
+              Sem cartão de crédito · Cancele quando quiser
+            </p>
           </div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{ borderTop: "1px solid #1a2332", padding: "2rem 1.25rem" }}>
+      <footer style={{ borderTop: "1px solid #0f1922", padding: "1.5rem" }}>
         <div style={{
           maxWidth: 1100, margin: "0 auto",
-          display: "flex", flexDirection: "column",
-          alignItems: "center", gap: "1rem", textAlign: "center",
+          display: "flex", flexWrap: "wrap", alignItems: "center",
+          justifyContent: "space-between", gap: "1rem",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <div style={{
-              width: 26, height: 26, borderRadius: 6,
+              width: 26, height: 26, borderRadius: 7,
               background: "linear-gradient(135deg,#00e5a0,#00b4d8)",
               display: "flex", alignItems: "center", justifyContent: "center",
               color: "#080b10", fontWeight: 900, fontSize: "0.8125rem",
             }}>F</div>
             <span style={{ fontWeight: 700, fontSize: "0.9375rem" }}>FitClub</span>
           </div>
-          <p style={{ fontSize: "0.75rem", color: "#8b9bb4" }}>
-            © 2026 FitClub. Feito com 💪 para a comunidade fitness.
-          </p>
+          <p style={{ fontSize: "0.75rem", color: "#4a5568" }}>© 2026 FitClub. Todos os direitos reservados.</p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
             {["Privacidade", "Termos", "Suporte"].map((l) => (
               <a key={l} href="#" className="footer-link">{l}</a>
@@ -277,21 +245,12 @@ export default function Home() {
 
       {/* ── RESPONSIVE ── */}
       <style>{`
-        /* Mobile first — single column already set inline */
-
-        /* Tablet: 600px+ */
-        @media (min-width: 600px) {
-          .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
-          .pain-grid  { grid-template-columns: repeat(3, 1fr) !important; }
-        }
-
-        /* Desktop: 900px+ */
-        @media (min-width: 900px) {
-          .hero-inner { grid-template-columns: 1fr 1fr !important; align-items: center; }
+        @media (min-width: 860px) {
+          .hero-inner { grid-template-columns: 1fr 1fr !important; }
+          .steps-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .feat-grid  { grid-template-columns: repeat(4, 1fr) !important; }
-          footer > div { flex-direction: row !important; justify-content: space-between; text-align: left !important; }
         }
       `}</style>
-    </main>
+    </div>
   );
 }
