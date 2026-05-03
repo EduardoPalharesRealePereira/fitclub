@@ -41,6 +41,15 @@ body {
   50% { opacity: 0.3; }
 }
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
 @layer components {
   .gradient-text {
     background: linear-gradient(135deg, #00e5a0 0%, #00b4d8 100%);

@@ -5,10 +5,12 @@ import ProfileSetup from "./ProfileSetup";
 import ChatSection from "./ChatSection";
 import WorkoutSection from "./WorkoutSection";
 import DietSection from "./DietSection";
+import CompetitionSection from "./CompetitionSection";
+import WearableSection from "./WearableSection";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
-type Tab = "home" | "chat" | "workout" | "diet" | "profile";
+type Tab = "home" | "chat" | "workout" | "diet" | "compete" | "profile";
 
 interface Props {
   user: { id: string; email: string };
@@ -53,6 +55,19 @@ function IconLeaf({ active }: { active: boolean }) {
     </svg>
   );
 }
+function IconTrophy({ active }: { active: boolean }) {
+  const c = active ? "#00e5a0" : "#4a5568";
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 9H4.5a2.5 2.5 0 010-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 000-5H18" />
+      <path d="M4 22h16" />
+      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+      <path d="M18 2H6v7a6 6 0 0012 0V2z" />
+    </svg>
+  );
+}
 function IconUser({ active }: { active: boolean }) {
   const c = active ? "#00e5a0" : "#4a5568";
   return (
@@ -87,11 +102,12 @@ function greeting() {
 }
 
 const NAV_ITEMS: { id: Tab; label: string; Icon: React.FC<{ active: boolean }> }[] = [
-  { id: "home", label: "Início", Icon: IconHome },
-  { id: "chat", label: "Chat", Icon: IconChat },
-  { id: "workout", label: "Treino", Icon: IconDumbbell },
-  { id: "diet", label: "Dieta", Icon: IconLeaf },
-  { id: "profile", label: "Perfil", Icon: IconUser },
+  { id: "home",    label: "Início",    Icon: IconHome },
+  { id: "chat",    label: "Chat",      Icon: IconChat },
+  { id: "workout", label: "Treino",    Icon: IconDumbbell },
+  { id: "diet",    label: "Dieta",     Icon: IconLeaf },
+  { id: "compete", label: "Competir",  Icon: IconTrophy },
+  { id: "profile", label: "Perfil",    Icon: IconUser },
 ];
 
 /* ── Shell ──────────────────────────────────────────────── */
@@ -320,6 +336,14 @@ export default function DashboardShell({ user, initialProfile }: Props) {
                   </div>
                 )}
 
+                {/* Wearables card */}
+                <div style={{ background: "#0d1520", border: "1px solid #1a2332", borderRadius: 20, padding: "1.25rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.875rem" }}>
+                    <p style={{ fontSize: "0.6875rem", fontWeight: 700, color: "#8b9bb4", textTransform: "uppercase", letterSpacing: "0.1em" }}>⌚ Dispositivos</p>
+                  </div>
+                  <WearableSection userId={user.id} />
+                </div>
+
                 {/* Today's meals preview */}
                 {diet?.meals && Array.isArray(diet.meals) && (diet.meals as Array<{name: string; time: string; calories: number}>).length > 0 && (
                   <div style={{ background: "#0d1520", border: "1px solid #1a2332", borderRadius: 20, padding: "1.25rem" }}>
@@ -355,7 +379,13 @@ export default function DashboardShell({ user, initialProfile }: Props) {
         {/* CHAT */}
         {tab === "chat" && (
           <div style={{ height: "calc(100vh - 120px)" }}>
-            <ChatSection fitnessProfile={fp} />
+            <ChatSection
+              fitnessProfile={fp}
+              workoutPlan={wp}
+              dietPlan={dp}
+              onWorkoutUpdate={(data) => handlePlanUpdated("workout", data)}
+              onDietUpdate={(data) => handlePlanUpdated("diet", data)}
+            />
           </div>
         )}
 
@@ -377,6 +407,16 @@ export default function DashboardShell({ user, initialProfile }: Props) {
               fitnessProfile={fp}
               dietPlan={dp}
               onPlanGenerated={(data) => handlePlanUpdated("diet", data)}
+            />
+          </div>
+        )}
+
+        {/* COMPETE */}
+        {tab === "compete" && (
+          <div>
+            <CompetitionSection
+              userId={user.id}
+              displayName={userName}
             />
           </div>
         )}
@@ -410,16 +450,16 @@ export default function DashboardShell({ user, initialProfile }: Props) {
               style={{
                 flex: 1, display: "flex", flexDirection: "column",
                 alignItems: "center", justifyContent: "center",
-                padding: "0.625rem 0.25rem 0.5rem", gap: "0.25rem",
+                padding: "0.5rem 0.1rem 0.4rem", gap: "0.2rem",
                 background: "none", border: "none", cursor: "pointer",
                 transition: "opacity 0.15s",
               }}
             >
               <Icon active={active} />
               <span style={{
-                fontSize: "0.5625rem", fontWeight: active ? 700 : 500,
+                fontSize: "0.5rem", fontWeight: active ? 700 : 500,
                 color: active ? "#00e5a0" : "#4a5568",
-                letterSpacing: "0.02em", lineHeight: 1,
+                letterSpacing: "0.01em", lineHeight: 1,
               }}>{label}</span>
             </button>
           );
